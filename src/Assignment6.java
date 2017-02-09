@@ -1,7 +1,7 @@
 /* ==================================================================
 *
 *   PROGRAM NAME:
-*       Assignment5 - GUI Cards
+*       Assignment6 - ////
 *
 *   Description:
 *	Understand the Classes and Problem
@@ -34,9 +34,7 @@
 *	"High Card".
 *
 *   Classes:
-*       Phase I - None
-*       Phase II -
-*           CardTable extends JFrame, GUICard, Card, Hand, Deck
+*       ////
 *
 *   Parameters:
 *       1. none
@@ -47,7 +45,7 @@
 *       2017/02/01
 *
 *   Author/s:
-*       Faiga Revah, Oswaldo Minez, Roderick Burkhardt
+*       Faiga Revah, Roderick Burkhardt, Oswaldo Minez
 *
 * ==================================================================*/
 
