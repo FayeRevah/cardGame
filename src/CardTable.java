@@ -1,40 +1,23 @@
 /* ==================================================================
 *
 *   PROGRAM NAME:
-*       Assignment5 - GUI Cards
+*       Assignment6 - Timed High-Card Game
 *
 *   Description:
-*	Understand the Classes and Problem
 *	
-*	We wish to move our Card classes from the realm of console apps to 
-*	that of GUI apps.  We'll do this in stages.
-*	
-*	>   Read and display Card pictures - Read .gif image files as Icons, 
-*	and attach them to JLabels that we can display on a JFrame.
-*	
-*	>   Encapsulate the Card Icons in a class GUICard - Once we debug 
-*	imagery for cards, above, we can move it into its own class, GUICard.
-*	
-*	>   Create a CardTable class - This JFrame class will embody the 
-*	JPanels and Layout(s) needed for our application. This is where all 
-*	the cards and controls will be placed. 
-*	
-*	>   Use a CardGameFramework class - Use an already created class to 
-*	deal cards for display from an actual deck.
-*	
-*	>Create the game "High-Card"
-*	
-*	The first phase (item 1) will allow you to debug the problem of reading 
-*	the .gif files and displaying them on a JFrame without any excess logic 
-*	or class complexity.  The second phase (items 2 and 3) will let you 
-*	turn what you did in the first phase into a multi-class project.  The 
-*	final phase (items 4 and 5) will add the CardGameFramework class so 
-*	that your card tools can be combined with your GUI tools to create a 
-*	GUI program that has real computational power for a GUI card game, 
-*	"High Card".
+*	>   Change the program into a Model-View-Controller Design Pattern. 
+*           
+*	>   Add a new part to the High-Card game by putting a timer on the 
+*           side of the screen.  It will be on a timer to update every second,  
+*           but in order for you to still play the game, you will need to use  
+*           multithreading.  (Timer class) 
+*           
+*	>   Design a new game. 
+*           
+*	>   Redraw the UML diagram so that it represents your new structure.
 *
 *   Classes:
-*       None
+*       none
 *
 *   Parameters:
 *       1. none
@@ -42,15 +25,13 @@
 *   Additional Files:
 *
 *   Created:
-*       2017/02/01
+*       2017/02/08
 *
 *   Author/s:
-*       Faiga Revah, Oswaldo Minez, Roderick Burkhardt
+*       Faiga Revah, Roderick Burkhardt, Oswaldo Minez
 *
 * ==================================================================*/
 
-
-package assignment5;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
