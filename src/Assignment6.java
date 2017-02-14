@@ -1,7 +1,7 @@
 /* ==================================================================
 *
 *   PROGRAM NAME:
-*       Assignment6 - Timed High-Card Game
+*       Assignment6 - BUILD Game
 *
 *   Description:
 *	
@@ -53,6 +53,7 @@ public class Assignment6
     static boolean gameInPlay = false;
     static int roundsPlayed = 0;
     static Hand[] playerPlays = new Hand[NUM_PLAYERS];
+    
     
     public static void main(String[] args)
     {
