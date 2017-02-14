@@ -111,6 +111,7 @@ public class Assignment6
         {
             playedCardLabels[k] = new JLabel( GUICard.getBlankIcon(),
                     JLabel.CENTER );
+            playedCardLabels[k].addMouseListener(clickListener);
             if ( k % NUM_PLAYERS == 0 )
             {
                 playLabelText[k] = new JLabel( "Computer", JLabel.CENTER );
@@ -242,6 +243,14 @@ public class Assignment6
                 removeCard(humanLabels, 6);
                 removeCard(computerLabels, 0);
                 updatePanels();
+            }
+            else if (event.getSource() == playedCardLabels[0])
+            {
+                //
+            }
+            else if (event.getSource() == playedCardLabels[1])
+            {
+                //
             }
             
             myCardTable.pnlPlayArea.removeAll();
