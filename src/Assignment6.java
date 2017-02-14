@@ -1,11 +1,3 @@
-
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.Icon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 /* ==================================================================
 *
 *   PROGRAM NAME:
@@ -40,6 +32,13 @@ import javax.swing.JOptionPane;
 *
 * ==================================================================*/
 
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.Icon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Assignment6
 {
