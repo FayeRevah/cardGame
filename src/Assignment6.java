@@ -36,6 +36,7 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,11 +50,13 @@ public class Assignment6
     static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText = new JLabel[NUM_PLAYERS];
+    static JLabel timerLabel;
+    static JButton cannotPlayButton;
     static CardGameFramework highCardGame;
     static boolean gameInPlay = false;
     static int roundsPlayed = 0;
     static Hand[] playerPlays = new Hand[NUM_PLAYERS];
-    
+    static int [] cannotPlayCount = new int[NUM_PLAYERS];
     
     public static void main(String[] args)
     {
@@ -119,6 +122,9 @@ public class Assignment6
             }
             playerPlays[k] = new Hand();
         }
+        
+        timerLabel = new JLabel();
+        cannotPlayButton = new JButton("I cannot play");
 
         // ADD LABELS TO PANELS -----------------------------------------
         for (k = 0; k < NUM_CARDS_PER_HAND; k++)
@@ -127,10 +133,17 @@ public class Assignment6
             myCardTable.pnlHumanHand.add(humanLabels[k]);
         }
         
-        for (k = 0; k < NUM_PLAYERS; k++)
-            myCardTable.pnlPlayArea.add(playedCardLabels[k]);
-        for (k = 0; k < NUM_PLAYERS; k++)
-            myCardTable.pnlPlayArea.add(playLabelText[k]);
+        myCardTable.pnlPlayArea.add(playedCardLabels[0]);
+        myCardTable.pnlPlayArea.add(timerLabel);
+        myCardTable.pnlPlayArea.add(playedCardLabels[1]);
+        myCardTable.pnlPlayArea.add(playLabelText[0]);
+        myCardTable.pnlPlayArea.add(cannotPlayButton);
+        myCardTable.pnlPlayArea.add(playLabelText[1]);
+        
+//        for (k = 0; k < NUM_PLAYERS; k++)
+//            myCardTable.pnlPlayArea.add(playedCardLabels[k]);
+//        for (k = 0; k < NUM_PLAYERS; k++)
+//            myCardTable.pnlPlayArea.add(playLabelText[k]);
         myCardTable.setVisible(true);
         myCardTable.repaint();
         
