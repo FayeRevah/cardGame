@@ -1,3 +1,6 @@
+
+import javax.swing.JLabel;
+
 /* ==================================================================
 *
 *   PROGRAM NAME:
@@ -32,9 +35,55 @@
 *
 * ==================================================================*/
 
+public class Timer extends Thread {
 
+    private Counter counterObject;
+    private JLabel updateLabel;
+    private boolean doProcess = true;
+    public static final int PAUSE = 1000;
 
-public class Timer extends Thread
-{
-    
+    public Timer() {
+        doProcess = true;
+        counterObject = ctr;
+        updateLabel = lbl;
+    }
+
+    public void run() {
+        //countObject.increment();
+        while (doProcess) {
+
+            gameCounter.increment();
+            System.out.println(gameCounter.toString());
+
+            timerText.setText(gameCounter.toString());
+            this.repaintTimer();
+            doNothing(PAUSE);
+        }
+        System.out.println(gameCounter.toString());
+
+    }
+
+    public void repaintTimer() {
+        timerText.repaint();
+        table.pnlTimerText.repaint();
+
+    }
+
+    public void reset() {
+        doProcess = true;
+    }
+
+    public void kill() {
+        doProcess = false;
+        this.repaintTimer();
+    }
+
+    public void doNothing(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            System.out.println("Unexpected interrupt");
+            System.exit(0);
+        }
+    }
 }
