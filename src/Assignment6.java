@@ -42,9 +42,7 @@ import javax.swing.JOptionPane;
 
 
 public class Assignment6
-{
-    //push test
-    
+{  
     static CardTable myCardTable;
     static int NUM_CARDS_PER_HAND = 7;
     static int NUM_PLAYERS = 2;
