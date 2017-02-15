@@ -316,7 +316,7 @@ public class Assignment6
                         - Card.valueAsInt(highCardGame.getHand(player).inspectCard(stack)) == -1 ))
                         {
                             cardStacks[0].takeCard(highCardGame.getHand(player).playCard(playerCardToPlay));
-                            replaceCard(highCardGame.getHand(player), player);
+                            //replaceCard(highCardGame.getHand(player), player);
                         }
                 else
                 {
