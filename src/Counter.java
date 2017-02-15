@@ -101,29 +101,29 @@ public class Counter extends JPanel
                 add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public static void main(String[] args)
-	{
-            MyTestFrame myTestFrame1 = new MyTestFrame();
-	}
+	//public static void main(String[] args)
+	//{
+         //   MyTestFrame myTestFrame1 = new MyTestFrame();
+	//}
 
 
 }//end of public class
 
 //Testing Code
 
-class MyTestFrame extends JFrame
-{
-	Counter counter;
-
-	public MyTestFrame()
-	{
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Container myPane = getContentPane();
-
-		counter = new Counter();
-		counter.startCounter();
-		myPane.add(counter);
-		pack();
-		setVisible(true);
-	}
-}
+//class MyTestFrame extends JFrame
+//{
+//	Counter counter;
+//
+//	public MyTestFrame()
+//	{
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		Container myPane = getContentPane();
+//
+//		counter = new Counter();
+//		counter.startCounter();
+//		myPane.add(counter);
+//		pack();
+//		setVisible(true);
+//	}
+//}

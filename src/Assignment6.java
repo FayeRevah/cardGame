@@ -32,6 +32,7 @@
 *
 * ==================================================================*/
 
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
@@ -39,6 +40,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Assignment6
 {    
@@ -50,7 +52,7 @@ public class Assignment6
     static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText = new JLabel[NUM_PLAYERS];
-    static JLabel timerLabel;
+    static Counter timerCounter;
     static JButton cannotPlayButton;
     static CardGameFramework highCardGame;
     static boolean gameInPlay = false;
@@ -98,6 +100,7 @@ public class Assignment6
         Icon tempIcon;
         
         CardClickListener clickListener = new CardClickListener();
+        timerCounter = new Counter();
         
         for ( k = 0; k < NUM_CARDS_PER_HAND; k++ )
         {
@@ -126,7 +129,7 @@ public class Assignment6
         
         playerCardToPlay = 0;
         
-        timerLabel = new JLabel();
+        //timerLabel = new JLabel();
         cannotPlayButton = new JButton("I cannot play");
         cannotPlayButton.addMouseListener(clickListener);
 
@@ -138,11 +141,13 @@ public class Assignment6
         }
         
         myCardTable.pnlPlayArea.add(playedCardLabels[0]);
-        myCardTable.pnlPlayArea.add(timerLabel);
+        myCardTable.pnlPlayArea.add(timerCounter);
         myCardTable.pnlPlayArea.add(playedCardLabels[1]);
         myCardTable.pnlPlayArea.add(playLabelText[0]);
         myCardTable.pnlPlayArea.add(cannotPlayButton);
         myCardTable.pnlPlayArea.add(playLabelText[1]);
+        
+        timerCounter.startCounter();
 
         myCardTable.setVisible(true);
         myCardTable.repaint();
