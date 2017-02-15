@@ -54,9 +54,9 @@ public class Assignment6
     static JButton cannotPlayButton;
     static CardGameFramework highCardGame;
     static boolean gameInPlay = false;
-    static int roundsPlayed = 0;
-    static Hand[] playerPlays = new Hand[NUM_PLAYERS];
+    static Hand[] cardStacks = new Hand[2];
     static int[] cannotPlayCount = new int[NUM_PLAYERS];
+    static int playerCardToPlay;
     
     public static void main (String[] args)
     {
@@ -82,7 +82,8 @@ public class Assignment6
         
         myCardTable.setVisible(true);
         
-        int playOrNot = JOptionPane.showConfirmDialog(null, "Ready to play BUILD?", "", JOptionPane.YES_NO_OPTION);
+        int playOrNot = JOptionPane.showConfirmDialog(null,
+                "Ready to play BUILD?", "", JOptionPane.YES_NO_OPTION);
         if ( playOrNot == JOptionPane.YES_OPTION )
         {
             buildPanels();
@@ -125,8 +126,12 @@ public class Assignment6
                 String temp = "Player " + k;
                 playLabelText[k] = new JLabel(temp, JLabel.CENTER);
             }
-            playerPlays[k] = new Hand();
+            cannotPlayCount[k] = 0;
         }
+        
+        cardStacks[0] = new Hand();
+        cardStacks[1] = new Hand();
+        playerCardToPlay = 0;
         
         timerLabel = new JLabel();
         cannotPlayButton = new JButton("I cannot play");
@@ -146,109 +151,73 @@ public class Assignment6
         myCardTable.pnlPlayArea.add(cannotPlayButton);
         myCardTable.pnlPlayArea.add(playLabelText[1]);
 
-//        for (k = 0; k < NUM_PLAYERS; k++)
-//            myCardTable.pnlPlayArea.add(playedCardLabels[k]);
-//        for (k = 0; k < NUM_PLAYERS; k++)
-//            myCardTable.pnlPlayArea.add(playLabelText[k]);
         myCardTable.setVisible(true);
         myCardTable.repaint();
         
     }
     
-    public static void removeCard (JLabel[] labels, int removed)
+    public static void replaceCard (int player, int removed)
     {
-        for ( int i = removed; i < labels.length; i++ )
-        {
-            if ( i == labels.length - 1 )
-            {
-                labels[i] = new JLabel(GUICard.getBlankIcon());
-            }
-            else
-            {
-                labels[i] = labels[i + 1];
-            }            
-        }
+        
+        highCardGame.getHand(player).takeCard(highCardGame.getCardFromDeck());
+//        for ( int i = removed; i < labels.length; i++ )
+//        {
+//            if ( i == labels.length - 1 )
+//            {
+//                labels[i] = new JLabel(GUICard.getBlankIcon());
+//            }
+//            else
+//            {
+//                labels[i] = labels[i + 1];
+//            }            
+//        }
     }
     
     public static void updatePanels ()
     {
-        myCardTable.pnlComputerHand.removeAll();
+        //myCardTable.pnlComputerHand.removeAll();
         myCardTable.pnlHumanHand.removeAll();
         for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
         {
-            myCardTable.pnlComputerHand.add(computerLabels[i]);
+            //myCardTable.pnlComputerHand.add(computerLabels[i]);
             myCardTable.pnlHumanHand.add(humanLabels[i]);
         }
         
-        myCardTable.pnlComputerHand.revalidate();
+        //myCardTable.pnlComputerHand.revalidate();
         myCardTable.pnlHumanHand.revalidate();
     }
     
     public static class CardClickListener implements MouseListener
     {
-
-        Card humanCard;
-        Card computerCard;
-        
         public void mouseClicked (MouseEvent event)
         {
             if ( event.getSource() == humanLabels[0] )
             {
-                humanCard = highCardGame.playCard(1, 0);
-                computerCard = highCardGame.playCard(0, computersPlay(highCardGame.getHand(0)));
-                removeCard(humanLabels, 0);
-                removeCard(computerLabels, 0);
-                updatePanels();
-                //System.out.println(" Card 0 ");
-                
+                playerCardToPlay = 0;                
             }
             else if ( event.getSource() == humanLabels[1] )
             {
-                humanCard = highCardGame.playCard(1, 1);
-                computerCard = highCardGame.playCard(0, computersPlay(highCardGame.getHand(0)));
-                removeCard(humanLabels, 1);
-                removeCard(computerLabels, 0);
-                updatePanels();
+                playerCardToPlay = 1; 
             }
             else if ( event.getSource() == humanLabels[2] )
             {
-                humanCard = highCardGame.playCard(1, 2);
-                computerCard = highCardGame.playCard(0, computersPlay(highCardGame.getHand(0)));
-                removeCard(humanLabels, 2);
-                removeCard(computerLabels, 0);
-                updatePanels();
+                playerCardToPlay = 2; 
             }
             else if ( event.getSource() == humanLabels[3] )
             {
-                humanCard = highCardGame.playCard(1, 3);
-                computerCard = highCardGame.playCard(0, computersPlay(highCardGame.getHand(0)));
-                removeCard(humanLabels, 3);
-                removeCard(computerLabels, 0);
-                updatePanels();
+                playerCardToPlay = 3; 
             }
             else if ( event.getSource() == humanLabels[4] )
             {
-                humanCard = highCardGame.playCard(1, 4);
-                computerCard = highCardGame.playCard(0, computersPlay(highCardGame.getHand(0)));
-                removeCard(humanLabels, 4);
-                removeCard(computerLabels, 0);
-                updatePanels();
+                playerCardToPlay = 4; 
             }
             else if ( event.getSource() == humanLabels[5] )
             {
-                humanCard = highCardGame.playCard(1, 6);
-                computerCard = highCardGame.playCard(0, computersPlay(highCardGame.getHand(0)));
-                removeCard(humanLabels, 5);
-                removeCard(computerLabels, 0);
-                updatePanels();
+                playerCardToPlay = 5; 
             }
             else if ( event.getSource() == humanLabels[6] )
             {
-                humanCard = highCardGame.playCard(1, 6);
-                computerCard = highCardGame.playCard(0, computersPlay(highCardGame.getHand(0)));
-                removeCard(humanLabels, 6);
-                removeCard(computerLabels, 0);
-                updatePanels();
+                playerCardToPlay = 6; 
             }
             else if ( event.getSource() == playedCardLabels[0] )
             {
@@ -339,4 +308,19 @@ public class Assignment6
         return middleCard;        
     }
     
+    public void playCard(int player, int stack)
+    {
+        if ( (Card.valueAsInt(cardStacks[0].inspectCard(cardStacks[0].getNumCards()-1))
+                        - Card.valueAsInt(highCardGame.getHand(player).inspectCard(playerCardToPlay)) == 1) || 
+                        (Card.valueAsInt(cardStacks[0].inspectCard(cardStacks[0].getNumCards()-1))
+                        - Card.valueAsInt(highCardGame.getHand(player).inspectCard(stack)) == -1 ))
+                        {
+                            cardStacks[0].takeCard(highCardGame.getHand(player).playCard(playerCardToPlay));
+                            replaceCard(highCardGame.getHand(player), player);
+                        }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Not a Valid Play", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+    }
 }
