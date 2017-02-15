@@ -101,10 +101,10 @@ public class Counter extends JPanel
                 add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	//public static void main(String[] args)
-	//{
-         //   MyTestFrame myTestFrame1 = new MyTestFrame();
-	//}
+	public void activateTimer()
+        {
+            timer.start();
+        }
 
 
 }//end of public class
