@@ -159,7 +159,7 @@ public class Assignment6
     public static void replaceCard (int player, int removed)
     {
         
-        highCardGame.getHand(player).takeCard(highCardGame.getCardFromDeck());
+        //highCardGame.getHand(player).takeCard(highCardGame.getCardFromDeck());
 //        for ( int i = removed; i < labels.length; i++ )
 //        {
 //            if ( i == labels.length - 1 )

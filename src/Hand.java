@@ -78,6 +78,10 @@ public class Hand
     
     public Card playCard(int cardIndex)
     {
+        if ( numCards == 0)
+        {
+            return new Card('M', Card.Suit.spades);
+        }
         Card card = myCards[cardIndex];
         for(int i = cardIndex; i < numCards - 1; i++)
             myCards[i] = myCards[i + 1];
