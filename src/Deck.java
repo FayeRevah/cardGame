@@ -38,7 +38,7 @@ import java.util.Random;
 public class Deck
 {
 
-    public final int MAX_CARDS = 336; // max 6 decks of 56 cards
+    public final int MAX_CARDS = 312; // max 6 decks of 56 cards
 
     private static Card[] masterPack;
     private Card[] cards;
@@ -76,15 +76,15 @@ public class Deck
     {
         allocateMasterPack();
         this.numPacks = numPacks;
-        this.topCard = (56 * this.numPacks) - 1;
+        this.topCard = (52 * this.numPacks) - 1;
 
-        cards = new Card[56 * numPacks];
+        cards = new Card[52 * numPacks];
 
         for (int pack = 0; pack < numPacks; pack++)
         {
             for (int card = 0; card < masterPack.length; card++)
             {
-                cards[(56 * pack) + card] = masterPack[card];
+                cards[(52 * pack) + card] = masterPack[card];
             }
         }
     }
@@ -95,7 +95,7 @@ public class Deck
     {
         int split = cards.length / 2;
         Random rand = new Random();
-        int shufCount = 5 * (56 * numPacks);
+        int shufCount = 5 * (52 * numPacks);
 
         do
         {
@@ -157,14 +157,14 @@ public class Deck
     {
         if (masterPack == null)
         {
-            masterPack = new Card[56];
+            masterPack = new Card[52];
 
             for (Card.Suit s : Card.Suit.values())
             {
-                for (int x = 1; x < 15; x++)
+                for (int x = 1; x < 14; x++)
                 {
                     Card newCard;
-                    int value = x % 15;
+                    int value = x % 14;
                     switch (value)
                     {
                         case 1:
@@ -182,9 +182,9 @@ public class Deck
                         case 13:
                             newCard = new Card('K', s);
                             break;
-                        case 14:
-                            newCard = new Card('X', s);
-                            break;
+                        //case 14:
+                        //    newCard = new Card('X', s);
+                        //    break;
                         default:
                             newCard = new Card(Integer.toString(value).charAt(0), s);
                     }
@@ -194,17 +194,17 @@ public class Deck
                     }
                     else if (s == Card.Suit.diamonds)
                     {
-                        masterPack[(x - 1) + 14]
+                        masterPack[(x - 1) + 13]
                                 = newCard;
                     }
                     else if (s == Card.Suit.hearts)
                     {
-                        masterPack[(x - 1) + 28]
+                        masterPack[(x - 1) + 26]
                                 = newCard;
                     }
                     else
                     {
-                        masterPack[(x - 1) + 42] = newCard;
+                        masterPack[(x - 1) + 39] = newCard;
                     }
                 }
             }
@@ -246,7 +246,7 @@ public class Deck
     {
         
         if ( this.getNumCards() != 0 )
-            Card.arraySort(cards, (numPacks*56));
+            Card.arraySort(cards, (numPacks*52));
     }
     
     public int getNumCards()

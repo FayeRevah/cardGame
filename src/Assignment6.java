@@ -127,9 +127,8 @@ public class Assignment6
             playedCardLabels[k].addMouseListener(clickListener);
         }
         
-        playerCardToPlay = 0;
+        playerCardToPlay = -5;
         
-        //timerLabel = new JLabel();
         cannotPlayButton = new JButton("I cannot play");
         cannotPlayButton.addMouseListener(clickListener);
 
@@ -171,16 +170,24 @@ public class Assignment6
 //        }
     }
     
-    public static void updatePnlHumanHand ()
+    public static void updatePanels ()
     {
-        
-        myCardTable.pnlHumanHand.removeAll();
-        for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
+        CardClickListener clickListener = new CardClickListener();
+        //myCardTable.pnlHumanHand.removeAll();
+        for ( int k = 0; k < NUM_CARDS_PER_HAND; k++ )
         {
-            myCardTable.pnlHumanHand.add(humanLabels[i]);
+            humanLabels[k] = null;
+            humanLabels[k] = new JLabel(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));
+            humanLabels[k].addMouseListener(clickListener);            
+            //myCardTable.pnlHumanHand.add(humanLabels[k]);
+            humanLabels[k].revalidate();
         }
-        
-        myCardTable.pnlHumanHand.revalidate();
+        for (int i = 0; i < cardStacks.length; i++)
+        {
+            playedCardLabels[i].setIcon(GUICard.getIcon(cardStacks[i].inspectCard(cardStacks[i].getNumCards()-1)));
+            playedCardLabels[i].revalidate();
+        }
+        //myCardTable.pnlHumanHand.revalidate();
     }
     
     public static class CardClickListener implements MouseListener
@@ -314,14 +321,15 @@ public class Assignment6
                         (Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards()-1))
                         - Card.valueAsInt(highCardGame.getHand(player).inspectCard(stack)) == -1 ))
 
-                        {
-                            cardStacks[0].takeCard(highCardGame.getHand(player).playCard(playerCardToPlay));
-                            //replaceCard(highCardGame.getHand(player), player);
-                        }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Not a Valid Play", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        {
+            cardStacks[stack].takeCard(highCardGame.getHand(player).playCard(playerCardToPlay));
+            updatePanels();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Not a Valid Play", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
 
     }
 }
