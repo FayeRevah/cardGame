@@ -172,22 +172,25 @@ public class Assignment6
     
     public static void updatePanels ()
     {
+        highCardGame.getHand(1).takeCard(highCardGame.getCardFromDeck());
         CardClickListener clickListener = new CardClickListener();
-        //myCardTable.pnlHumanHand.removeAll();
+        myCardTable.pnlHumanHand.removeAll();
         for ( int k = 0; k < NUM_CARDS_PER_HAND; k++ )
         {
-            humanLabels[k] = null;
-            humanLabels[k] = new JLabel(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));
+            //humanLabels[k] = null;
+            //humanLabels[k] = new JLabel(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));
+            humanLabels[k].setIcon(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));
             humanLabels[k].addMouseListener(clickListener);            
             //myCardTable.pnlHumanHand.add(humanLabels[k]);
-            humanLabels[k].revalidate();
+            //humanLabels[k].revalidate();
         }
         for (int i = 0; i < cardStacks.length; i++)
         {
             playedCardLabels[i].setIcon(GUICard.getIcon(cardStacks[i].inspectCard(cardStacks[i].getNumCards()-1)));
-            playedCardLabels[i].revalidate();
+            //playedCardLabels[i].revalidate();
         }
-        //myCardTable.pnlHumanHand.revalidate();
+        myCardTable.pnlHumanHand.revalidate();
+        myCardTable.pnlPlayArea.revalidate();
     }
     
     public static class CardClickListener implements MouseListener
@@ -319,7 +322,7 @@ public class Assignment6
         if ( (Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards()-1)) 
                         - Card.valueAsInt(highCardGame.getHand(player).inspectCard(playerCardToPlay)) == 1) || 
                         (Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards()-1))
-                        - Card.valueAsInt(highCardGame.getHand(player).inspectCard(stack)) == -1 ))
+                        - Card.valueAsInt(highCardGame.getHand(player).inspectCard(playerCardToPlay)) == -1 ))
 
         {
             cardStacks[stack].takeCard(highCardGame.getHand(player).playCard(playerCardToPlay));
