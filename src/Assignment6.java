@@ -292,13 +292,11 @@ public class Assignment6
             stack1TopCard = Card.valueAsInt(cardStacks[1].inspectCard(
                     cardStacks[1].getNumCards()-1));
             
-            System.out.println(cardStacks[0].inspectCard(
-                    cardStacks[0].getNumCards()-1) + " / " + cardStacks[1].inspectCard(
-                    cardStacks[1].getNumCards()-1));
+            System.out.println(stack0TopCard + " / " + stack1TopCard);
             int cardPlayStack0, cardPlayStack1;
             
             cardPlayStack0 = testCard(stack0TopCard, hand);
-            System.out.println(stack0TopCard + " // " + cardPlayStack0);
+            //System.out.println(stack0TopCard + " // " + cardPlayStack0);
             if ( cardPlayStack0 != -5 )
             {
                 cardStacks[0].takeCard(highCardGame.getHand(0).playCard(cardPlayStack0));
@@ -309,7 +307,7 @@ public class Assignment6
                 notFounds[0]++;
             }
             cardPlayStack1 = testCard(stack1TopCard, hand);
-            System.out.println(stack1TopCard + " // " + cardPlayStack1);
+            //System.out.println(stack1TopCard + " // " + cardPlayStack1);
             if ( cardPlayStack0 != -5 )
             {
                 cardStacks[1].takeCard(highCardGame.getHand(1).playCard(cardPlayStack1));
@@ -347,9 +345,10 @@ public class Assignment6
     
     public static int testCard(int valTopCard, Hand hand)
     {
-        for (int k = 0; k < NUM_CARDS_PER_HAND; k++)
+        for (int k = 0; k < hand.getNumCards(); k++)
         {
             int cardVal = Card.valueAsInt(hand.inspectCard(k));
+            //System.out.println(cardVal);
             if ( Math.abs(cardVal - valTopCard) == 1 )
             {
                 return k;
