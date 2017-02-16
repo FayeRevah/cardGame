@@ -215,22 +215,27 @@ public class Assignment6
             }
             else if ( event.getSource() == playedCardLabels[0] )
             {
-                playCard(1, 0);
-                noMoves[1] = 0;
-                currentPlayer = 0;
-                if (!checkForEnd())
+                if ( playCard(1, 0) )
                 {
-                    computersPlay(highCardGame.getHand(currentPlayer));
+                    noMoves[1] = 0;
+                    currentPlayer = 0;
+                    if (!checkForEnd())
+                    {
+                        computersPlay(highCardGame.getHand(currentPlayer));
+                    }
                 }
+                
             }
             else if ( event.getSource() == playedCardLabels[1] )
             {
-                playCard(1, 1);
-                noMoves[1] = 0;
-                currentPlayer = 0;
-                if (!checkForEnd())
+                if ( playCard(1, 1) )
                 {
-                    computersPlay(highCardGame.getHand(currentPlayer));
+                    noMoves[1] = 0;
+                    currentPlayer = 0;
+                    if (!checkForEnd())
+                    {
+                        computersPlay(highCardGame.getHand(currentPlayer));
+                    }
                 }
             }
             else if ( event.getSource() == cannotPlayButton )
@@ -298,7 +303,6 @@ public class Assignment6
         }
 
         currentPlayer = 1;
-        
         checkForEnd();
     }
 
@@ -320,13 +324,12 @@ public class Assignment6
         return -1;
     }
 
-    public static void playCard (int player, int stack)
+    public static boolean playCard (int player, int stack)
     {
         if ( (Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards() - 1))
                 - Card.valueAsInt(highCardGame.getHand(player).inspectCard(playerCardToPlay)) == 1)
                 || (Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards() - 1))
                 - Card.valueAsInt(highCardGame.getHand(player).inspectCard(playerCardToPlay)) == -1) )
-
         {
             cardStacks[stack].takeCard(highCardGame.getHand(player).playCard(playerCardToPlay));
             updatePlayArea();
@@ -341,9 +344,9 @@ public class Assignment6
             {
                 JOptionPane.showMessageDialog(null, "Not a Valid Play", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
+            return false;
         }
-
+        return true;
     }
     
     public static boolean checkForEnd()
