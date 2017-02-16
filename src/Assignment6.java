@@ -288,39 +288,41 @@ public class Assignment6
         stack1TopCard = Card.valueAsInt(cardStacks[1].inspectCard(
                 cardStacks[1].getNumCards() - 1));
 
-        int cardPlayStack0, cardPlayStack1;
+        System.out.println(stack0TopCard + "  //  " + stack1TopCard);
 
-        cardPlayStack0 = testCard(stack0TopCard, hand);
-
-        if ( cardPlayStack0 != -5 )
-        {
-            System.out.println("not -5 stack 0");
-            cardStacks[0].takeCard(highCardGame.getHand(0).playCard(cardPlayStack0));
-            updatePlayArea();
-        }
-        else
-        {
-            System.out.println("stack0 not found");
-            notFounds[0]++;
-        }
-        cardPlayStack1 = testCard(stack1TopCard, hand);
-        if ( cardPlayStack1 != -5 )
-        {
-            System.out.println("not -5 stack 1");
-            cardStacks[1].takeCard(highCardGame.getHand(1).playCard(cardPlayStack1));
-            updatePlayArea();
-        }
-        else
-        {
-            System.out.println("stack 1 not found");
-            notFounds[1]++;
-        }
-        if ( notFounds[0] > 5 && notFounds[1] > 5 )
-        {
-            currentPlayer = 1;
-            JOptionPane.showMessageDialog(null, "Human's Turn");
-        }
-
+//        int cardPlayStack0, cardPlayStack1;
+//
+//        cardPlayStack0 = testCard(stack0TopCard, hand);
+//
+//        if ( cardPlayStack0 != -5 )
+//        {
+//            System.out.println("not -5 stack 0");
+//            cardStacks[0].takeCard(highCardGame.getHand(0).playCard(cardPlayStack0));
+//            updatePlayArea();
+//        }
+//        else
+//        {
+//            System.out.println("stack0 not found");
+//            notFounds[0]++;
+//        }
+//        cardPlayStack1 = testCard(stack1TopCard, hand);
+//        if ( cardPlayStack1 != -5 )
+//        {
+//            System.out.println("not -5 stack 1");
+//            cardStacks[1].takeCard(highCardGame.getHand(1).playCard(cardPlayStack1));
+//            updatePlayArea();
+//        }
+//        else
+//        {
+//            System.out.println("stack 1 not found");
+//            notFounds[1]++;
+//        }
+//        if ( notFounds[0] > 5 && notFounds[1] > 5 )
+//        {
+//            currentPlayer = 1;
+//            JOptionPane.showMessageDialog(null, "Human's Turn");
+//        }
+        currentPlayer = 1;
     }
 
     public static int testCard (int valTopCard, Hand hand)
