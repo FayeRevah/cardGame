@@ -102,7 +102,7 @@ public class Assignment6
         Icon tempIcon;
 
         CardClickListener clickListener = new CardClickListener();
-        timerCounter = new Counter();
+        timerCounter = new Counter(false);
 
         for ( k = 0; k < NUM_CARDS_PER_HAND; k++ )
         {
@@ -130,7 +130,7 @@ public class Assignment6
         }
 
         playerCardToPlay = -5;
-        currentPlayer = 0;
+        currentPlayer = 1;
 
         cannotPlayButton = new JButton("I cannot play");
         cannotPlayButton.addMouseListener(clickListener);
@@ -270,25 +270,86 @@ public class Assignment6
         }
     }
 
-    public static int computersPlay (Hand hand)
+    public static void computersPlay (Hand hand)
     {
         hand.sortByVal();//sorts hand lowest to highest
-
-        int numCards = hand.getNumCards();
-        int middleCard = (numCards - 1) / 2; //middle index of hand
-
-        //if there are two remaining cards, returns the lowest
-        //if one remaining card, returns it.
-        if ( numCards == 1 || numCards == 2 )
-        {
-            return 0;
+//        for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
+//        {
+//            System.out.println(hand.inspectCard(i));
+//        }
+        
+        int stack0TopCard, stack1TopCard;
+        
+        boolean canPlay = true;
+        int notFounds[] = { 0, 0 };
+        
+        while ( gameInPlay )
+        {            
+            stack0TopCard = Card.valueAsInt(cardStacks[0].inspectCard(
+                    cardStacks[0].getNumCards()-1));
+            stack1TopCard = Card.valueAsInt(cardStacks[1].inspectCard(
+                    cardStacks[1].getNumCards()-1));
+            
+            int cardPlayStack0, cardPlayStack1;
+            
+            cardPlayStack0 = testCard(stack0TopCard, hand);
+            if ( cardPlayStack0 != -5 )
+            {
+                cardStacks[0].takeCard(highCardGame.getHand(0).playCard(cardPlayStack0));
+                updatePlayArea();
+            }
+            else 
+            {
+                notFounds[0]++;
+            }
+            cardPlayStack1 = testCard(stack1TopCard, hand);
+            cardPlayStack0 = testCard(stack0TopCard, hand);
+            if ( cardPlayStack0 != -5 )
+            {
+                cardStacks[1].takeCard(highCardGame.getHand(1).playCard(cardPlayStack1));
+                updatePlayArea();
+            }
+            else
+            {
+                notFounds[1]++;
+            }
+            if (notFounds[0] > 5 && notFounds[1] > 5)
+            {
+                currentPlayer = 1;
+                JOptionPane.showMessageDialog(null, "Human's Turn");
+                break;
+            }
+            
         }
-        if ( numCards == 0 )
-        {
-            return -1;
-        }
 
-        return middleCard;
+//        int numCards = hand.getNumCards();
+//        int middleCard = (numCards - 1) / 2; //middle index of hand
+//
+//        //if there are two remaining cards, returns the lowest
+//        //if one remaining card, returns it.
+//        if ( numCards == 1 || numCards == 2 )
+//        {
+//            return 0;
+//        }
+//        if ( numCards == 0 )
+//        {
+//            return -1;
+//        }
+//
+//        return middleCard;
+    }
+    
+    public static int testCard(int valTopCard, Hand hand)
+    {
+        for (int k = 0; k < NUM_CARDS_PER_HAND; k++)
+        {
+            int cardVal = Card.valueAsInt(hand.inspectCard(k));
+            if ( Math.abs(cardVal - valTopCard) == 1 )
+            {
+                return k;
+            }
+        }
+        return -5;
     }
 
     public static void playCard (int player, int stack)

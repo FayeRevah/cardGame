@@ -20,9 +20,12 @@ public class Counter extends JPanel
         private int hours = 0;
         private int seconds = 0;	
 	private String timeText; //string value of hh:mm:ss
+        
+        private boolean controlsOnOff;
 
 	public Counter()
 	{
+            this.controlsOnOff = true;
 		sec = 0;  //starts off with clock at 0
 		
 		timeText = String.format("%02d:%02d:%02d", hours, minutes, seconds);
@@ -36,6 +39,24 @@ public class Counter extends JPanel
 		startButton.addActionListener(new StartListener());
 		stopButton.addActionListener(new StopListener());
 		resetButton.addActionListener(new ResetListener());
+	}
+
+	public Counter(boolean controlsOnOff)
+	{
+            this.controlsOnOff = controlsOnOff;
+		sec = 0;  //starts off with clock at 0
+		
+		timeText = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+		timeLabel = new JLabel(timeText, SwingConstants.CENTER);
+
+		//startButton = new JButton("Start");
+		//stopButton = new JButton("Stop");
+		//resetButton = new JButton("Reset");
+
+                timer = new Timer(INTERVAL, new TimerIncrementListener());
+		//startButton.addActionListener(new StartListener());
+		//stopButton.addActionListener(new StopListener());
+		//resetButton.addActionListener(new ResetListener());
 	}
         
         //ActionListener class for reset button
@@ -89,16 +110,20 @@ public class Counter extends JPanel
                 timerPanel.setLayout(new BorderLayout());
                 timerPanel.add(timeLabel, BorderLayout.CENTER);
                 
-		buttonPanel = new JPanel();
+                add(timerPanel, BorderLayout.CENTER);
+                
+                if (controlsOnOff)
+                {
+                    buttonPanel = new JPanel();
                 buttonPanel.setLayout(new GridLayout(1,3));
 		buttonPanel.add(startButton);
 		buttonPanel.add(stopButton);
 		buttonPanel.add(resetButton);
-
-		setLayout(new BorderLayout());
-
-		add(timerPanel, BorderLayout.CENTER);
                 add(buttonPanel, BorderLayout.SOUTH);
+                }
+		
+		//setLayout(new BorderLayout());
+		
 	}
 
 	public void activateTimer()
