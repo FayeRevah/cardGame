@@ -55,9 +55,9 @@ public class Assignment6
     static Counter timerCounter;
     static JButton cannotPlayButton;
     static CardGameFramework highCardGame;
-    static boolean gameInPlay = false;
     static Hand[] cardStacks = new Hand[2];
     static int[] cannotPlayCount = new int[NUM_PLAYERS];
+    static int[] noMoves = new int[NUM_PLAYERS];
     static int playerCardToPlay;
     static int currentPlayer;
 
@@ -92,6 +92,8 @@ public class Assignment6
         if ( playOrNot == JOptionPane.YES_OPTION )
         {
             buildPanels();
+            for (int item : noMoves)
+                item = 0;
             timerCounter.activateTimer();
         }
     }
@@ -102,7 +104,7 @@ public class Assignment6
         Icon tempIcon;
 
         CardClickListener clickListener = new CardClickListener();
-        timerCounter = new Counter(false);
+        timerCounter = new Counter();
 
         for ( k = 0; k < NUM_CARDS_PER_HAND; k++ )
         {
@@ -215,40 +217,52 @@ public class Assignment6
             else if ( event.getSource() == playedCardLabels[0] )
             {
                 playCard(1, 0);
+                noMoves[1] = 0;
                 currentPlayer = 0;
-                computersPlay(highCardGame.getHand(currentPlayer));
+                if (!checkForEnd())
+                {
+                    computersPlay(highCardGame.getHand(currentPlayer));
+                }
             }
             else if ( event.getSource() == playedCardLabels[1] )
             {
                 playCard(1, 1);
+                noMoves[1] = 0;
                 currentPlayer = 0;
-                computersPlay(highCardGame.getHand(currentPlayer));
+                if (!checkForEnd())
+                {
+                    computersPlay(highCardGame.getHand(currentPlayer));
+                }
             }
             else if ( event.getSource() == cannotPlayButton )
             {
                 if ( currentPlayer == 1 )
                 {
                     cannotPlayCount[1]++;
+                    noMoves[1]++;
                     currentPlayer = 0;
-                    computersPlay(highCardGame.getHand(currentPlayer));
+                    if (!checkForEnd())
+                    {
+                        computersPlay(highCardGame.getHand(currentPlayer));
+                    }
                 }
             }
 
-            if ( highCardGame.getNumCardsRemainingInDeck() == 0 )
-            {
-                if ( cannotPlayCount[0] > cannotPlayCount[1] )
-                {
-                    JOptionPane.showMessageDialog(null, "Human Wins Game!\nThanks for Playing");
-                }
-                else if ( cannotPlayCount[0] < cannotPlayCount[1] )
-                {
-                    JOptionPane.showMessageDialog(null, "Computer Wins Game!\nThanks for Playing");
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
-                }
-            }
+//            if ( highCardGame.getNumCardsRemainingInDeck() == 0 )
+//            {
+//                if ( cannotPlayCount[0] > cannotPlayCount[1] )
+//                {
+//                    JOptionPane.showMessageDialog(null, "Human Wins Game!\nThanks for Playing");
+//                }
+//                else if ( cannotPlayCount[0] < cannotPlayCount[1] )
+//                {
+//                    JOptionPane.showMessageDialog(null, "Computer Wins Game!\nThanks for Playing");
+//                }
+//                else
+//                {
+//                    JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
+//                }
+//            }
         }
 
         public void mousePressed (MouseEvent e)
@@ -290,15 +304,19 @@ public class Assignment6
         if ( stackToBePlayed > -1)
         {
             cardStacks[stackToBePlayed].takeCard(hand.playCard(playerCardToPlay));
+            noMoves[0] = 0;
             updatePlayArea();
             highCardGame.getHand(0).takeCard(highCardGame.getCardFromDeck());
         }
         else
         {
             cannotPlayCount[0]++;
+            noMoves[0]++;
         }
 
         currentPlayer = 1;
+        
+        checkForEnd();
     }
 
     public static int testCard (int[] stackTopCardVals, Hand hand)
@@ -344,5 +362,50 @@ public class Assignment6
 
         }
 
+    }
+    
+    public static boolean checkForEnd()
+    {
+        if ( highCardGame.getNumCardsRemainingInDeck() == 0 
+                || (noMoves[0] > 3 || noMoves[1] > 3))
+        {
+            if ( cannotPlayCount[0] > cannotPlayCount[1] )
+            {
+                JOptionPane.showMessageDialog(null, "Human Wins Game!\nThanks for Playing");
+            }
+            else if ( cannotPlayCount[0] < cannotPlayCount[1] )
+            {
+                JOptionPane.showMessageDialog(null, "Computer Wins Game!\nThanks for Playing");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
+            }
+            myCardTable.pnlComputerHand.removeAll();
+            myCardTable.pnlHumanHand.removeAll();
+            myCardTable.pnlComputerHand.repaint();
+            myCardTable.pnlHumanHand.repaint();
+            return true;
+        }
+        return false;
+//        if ( noMoves[0] > 3 || noMoves[1] > 3 )
+//        {
+//            if ( cannotPlayCount[0] > cannotPlayCount[1] )
+//            {
+//                JOptionPane.showMessageDialog(null, "Human Wins Game!\nThanks for Playing");
+//            }
+//            else if ( cannotPlayCount[0] < cannotPlayCount[1] )
+//            {
+//                JOptionPane.showMessageDialog(null, "Computer Wins Game!\nThanks for Playing");
+//            }
+//            else
+//            {
+//                JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
+//            }
+//            myCardTable.pnlComputerHand.removeAll();
+//            myCardTable.pnlHumanHand.removeAll();
+//            myCardTable.pnlComputerHand.revalidate();
+//            myCardTable.pnlHumanHand.revalidate();
+//        }
     }
 }
