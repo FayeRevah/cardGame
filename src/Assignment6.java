@@ -228,6 +228,7 @@ public class Assignment6
                 if ( currentPlayer == 1 )
                 {
                     currentPlayer = 0;
+                    computersPlay(highCardGame.getHand(currentPlayer));
                 }
             }
 
@@ -293,6 +294,7 @@ public class Assignment6
             int cardPlayStack0, cardPlayStack1;
             
             cardPlayStack0 = testCard(stack0TopCard, hand);
+            System.out.println(stack0TopCard + " // " + cardPlayStack0);
             if ( cardPlayStack0 != -5 )
             {
                 cardStacks[0].takeCard(highCardGame.getHand(0).playCard(cardPlayStack0));
@@ -303,7 +305,7 @@ public class Assignment6
                 notFounds[0]++;
             }
             cardPlayStack1 = testCard(stack1TopCard, hand);
-            cardPlayStack0 = testCard(stack0TopCard, hand);
+            System.out.println(stack1TopCard + " // " + cardPlayStack1);
             if ( cardPlayStack0 != -5 )
             {
                 cardStacks[1].takeCard(highCardGame.getHand(1).playCard(cardPlayStack1));
