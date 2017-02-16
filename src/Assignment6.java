@@ -230,6 +230,7 @@ public class Assignment6
                     currentPlayer = 0;
                     computersPlay(highCardGame.getHand(currentPlayer));
                 }
+                System.out.println("player change");
             }
 
             if ( currentPlayer == 0 && highCardGame.getNumCardsRemainingInDeck() != 0 )
