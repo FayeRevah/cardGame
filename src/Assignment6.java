@@ -60,6 +60,7 @@ public class Assignment6
     static int[] noMoves = new int[NUM_PLAYERS];
     static int playerCardToPlay;
     static int currentPlayer;
+    static CardClickListener clickListener;
 
     public static void main (String[] args)
     {
@@ -103,7 +104,7 @@ public class Assignment6
         int k;
         Icon tempIcon;
 
-        CardClickListener clickListener = new CardClickListener();
+        clickListener = new CardClickListener();
         timerCounter = new Counter();
 
         for ( k = 0; k < NUM_CARDS_PER_HAND; k++ )
@@ -164,12 +165,10 @@ public class Assignment6
         for ( int k = 0; k < NUM_CARDS_PER_HAND; k++ )
         {
 
-            humanLabels[k].setIcon(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));
-            //humanLabels[k].addMouseListener(clickListener);            
+            humanLabels[k].setIcon(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));         
             myCardTable.pnlHumanHand.add(humanLabels[k]);
             humanLabels[k].revalidate();
         }
-        //myCardTable.pnlHumanHand.revalidate();
     }
 
     public static void updatePlayArea ()
@@ -247,22 +246,6 @@ public class Assignment6
                     }
                 }
             }
-
-//            if ( highCardGame.getNumCardsRemainingInDeck() == 0 )
-//            {
-//                if ( cannotPlayCount[0] > cannotPlayCount[1] )
-//                {
-//                    JOptionPane.showMessageDialog(null, "Human Wins Game!\nThanks for Playing");
-//                }
-//                else if ( cannotPlayCount[0] < cannotPlayCount[1] )
-//                {
-//                    JOptionPane.showMessageDialog(null, "Computer Wins Game!\nThanks for Playing");
-//                }
-//                else
-//                {
-//                    JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
-//                }
-//            }
         }
 
         public void mousePressed (MouseEvent e)
@@ -289,10 +272,10 @@ public class Assignment6
         
         hand.sortByVal();//sorts hand lowest to highest
 
-        for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
-        {
-            System.out.println(hand.inspectCard(i));
-        }
+//        for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
+//        {
+//            System.out.println(hand.inspectCard(i));
+//        }
         for (k = 0; k < stackTopCardVals.length; k++)
         {
             stackTopCardVals[k] = Card.valueAsInt(cardStacks[k].inspectCard(
@@ -339,7 +322,6 @@ public class Assignment6
 
     public static void playCard (int player, int stack)
     {
-        //System.out.println(Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards() - 1)) + "  /  " + Card.valueAsInt(highCardGame.getHand(player).inspectCard(playerCardToPlay)));
         if ( (Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards() - 1))
                 - Card.valueAsInt(highCardGame.getHand(player).inspectCard(playerCardToPlay)) == 1)
                 || (Card.valueAsInt(cardStacks[stack].inspectCard(cardStacks[stack].getNumCards() - 1))
@@ -381,31 +363,7 @@ public class Assignment6
             {
                 JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
             }
-            myCardTable.pnlComputerHand.removeAll();
-            myCardTable.pnlHumanHand.removeAll();
-            myCardTable.pnlComputerHand.repaint();
-            myCardTable.pnlHumanHand.repaint();
-            return true;
         }
         return false;
-//        if ( noMoves[0] > 3 || noMoves[1] > 3 )
-//        {
-//            if ( cannotPlayCount[0] > cannotPlayCount[1] )
-//            {
-//                JOptionPane.showMessageDialog(null, "Human Wins Game!\nThanks for Playing");
-//            }
-//            else if ( cannotPlayCount[0] < cannotPlayCount[1] )
-//            {
-//                JOptionPane.showMessageDialog(null, "Computer Wins Game!\nThanks for Playing");
-//            }
-//            else
-//            {
-//                JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
-//            }
-//            myCardTable.pnlComputerHand.removeAll();
-//            myCardTable.pnlHumanHand.removeAll();
-//            myCardTable.pnlComputerHand.revalidate();
-//            myCardTable.pnlHumanHand.revalidate();
-//        }
     }
 }
