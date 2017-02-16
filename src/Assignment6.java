@@ -159,7 +159,6 @@ public class Assignment6
     public static void updateHumanPanel ()
     {
         highCardGame.getHand(1).takeCard(highCardGame.getCardFromDeck());
-        //CardClickListener clickListener = new CardClickListener();
         for ( int k = 0; k < NUM_CARDS_PER_HAND; k++ )
         {
 
@@ -228,13 +227,14 @@ public class Assignment6
                 if ( currentPlayer == 1 )
                 {
                     currentPlayer = 0;
-                    computersPlay(highCardGame.getHand(currentPlayer));
+                    
                 }
                 System.out.println("player change");
             }
 
             if ( currentPlayer == 0 && highCardGame.getNumCardsRemainingInDeck() != 0 )
             {
+                System.out.println("play time");
                 computersPlay(highCardGame.getHand(0));
             }
 
@@ -242,15 +242,15 @@ public class Assignment6
             {
                 if ( cannotPlayCount[0] > cannotPlayCount[1] )
                 {
-                    JOptionPane.showMessageDialog(null, ("Human Wins Game!\nThanks for Playing"));
+                    JOptionPane.showMessageDialog(null, "Human Wins Game!\nThanks for Playing");
                 }
                 else if ( cannotPlayCount[0] < cannotPlayCount[1] )
                 {
-                    JOptionPane.showMessageDialog(null, ("Tie Game!\nThanks for Playing"));
+                    JOptionPane.showMessageDialog(null, "Computer Wins Game!\nThanks for Playing");
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, ("Computer Wins Game!\nThanks for Playing"));
+                    JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
                 }
             }
         }
@@ -284,14 +284,17 @@ public class Assignment6
         
         boolean canPlay = true;
         int notFounds[] = { 0, 0 };
-        
-        while ( gameInPlay )
+        System.out.println("in play");
+        while ( canPlay )
         {            
             stack0TopCard = Card.valueAsInt(cardStacks[0].inspectCard(
                     cardStacks[0].getNumCards()-1));
             stack1TopCard = Card.valueAsInt(cardStacks[1].inspectCard(
                     cardStacks[1].getNumCards()-1));
             
+            System.out.println(cardStacks[0].inspectCard(
+                    cardStacks[0].getNumCards()-1) + " / " + cardStacks[1].inspectCard(
+                    cardStacks[1].getNumCards()-1));
             int cardPlayStack0, cardPlayStack1;
             
             cardPlayStack0 = testCard(stack0TopCard, hand);
