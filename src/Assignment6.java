@@ -275,10 +275,10 @@ public class Assignment6
     public static void computersPlay (Hand hand)
     {
         hand.sortByVal();//sorts hand lowest to highest
-//        for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
-//        {
-//            System.out.println(hand.inspectCard(i));
-//        }
+        for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
+        {
+            System.out.println(hand.inspectCard(i));
+        }
         
         int stack0TopCard, stack1TopCard;
         
@@ -292,29 +292,33 @@ public class Assignment6
             stack1TopCard = Card.valueAsInt(cardStacks[1].inspectCard(
                     cardStacks[1].getNumCards()-1));
             
-            System.out.println(stack0TopCard + " / " + stack1TopCard);
+           // System.out.println(stack0TopCard + " / " + stack1TopCard);
             int cardPlayStack0, cardPlayStack1;
             
             cardPlayStack0 = testCard(stack0TopCard, hand);
             //System.out.println(stack0TopCard + " // " + cardPlayStack0);
             if ( cardPlayStack0 != -5 )
             {
+                System.out.println("not -5 stack 0");
                 cardStacks[0].takeCard(highCardGame.getHand(0).playCard(cardPlayStack0));
                 updatePlayArea();
             }
             else 
             {
+                System.out.println("stack0 not found");
                 notFounds[0]++;
             }
             cardPlayStack1 = testCard(stack1TopCard, hand);
             //System.out.println(stack1TopCard + " // " + cardPlayStack1);
-            if ( cardPlayStack0 != -5 )
+            if ( cardPlayStack1 != -5 )
             {
+                System.out.println("not -5 stack 1");
                 cardStacks[1].takeCard(highCardGame.getHand(1).playCard(cardPlayStack1));
                 updatePlayArea();
             }
             else
             {
+                System.out.println("stack 1 not found");
                 notFounds[1]++;
             }
             if (notFounds[0] > 5 && notFounds[1] > 5)
@@ -325,22 +329,6 @@ public class Assignment6
             }
             
         }
-
-//        int numCards = hand.getNumCards();
-//        int middleCard = (numCards - 1) / 2; //middle index of hand
-//
-//        //if there are two remaining cards, returns the lowest
-//        //if one remaining card, returns it.
-//        if ( numCards == 1 || numCards == 2 )
-//        {
-//            return 0;
-//        }
-//        if ( numCards == 0 )
-//        {
-//            return -1;
-//        }
-//
-//        return middleCard;
     }
     
     public static int testCard(int valTopCard, Hand hand)
@@ -372,7 +360,11 @@ public class Assignment6
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Not a Valid Play", "Error", JOptionPane.ERROR_MESSAGE);
+            if ( player != 0)
+            {
+                JOptionPane.showMessageDialog(null, "Not a Valid Play", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
         }
 
     }
