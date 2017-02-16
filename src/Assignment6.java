@@ -270,73 +270,53 @@ public class Assignment6
 
     public static void computersPlay (Hand hand)
     {
-        int stack0TopCard, stack1TopCard;
-        int notFounds[] =
-        {
-            0, 0
-        };
-        boolean canPlay = true;
-
+        int k;
+        int stackTopCardVals[] = { -1, -1 };
+        
         hand.sortByVal();//sorts hand lowest to highest
 
         for ( int i = 0; i < NUM_CARDS_PER_HAND; i++ )
         {
             System.out.println(hand.inspectCard(i));
         }
-        stack0TopCard = Card.valueAsInt(cardStacks[0].inspectCard(
-                cardStacks[0].getNumCards() - 1));
-        stack1TopCard = Card.valueAsInt(cardStacks[1].inspectCard(
-                cardStacks[1].getNumCards() - 1));
+        for (k = 0; k < stackTopCardVals.length; k++)
+        {
+            stackTopCardVals[k] = Card.valueAsInt(cardStacks[k].inspectCard(
+                cardStacks[k].getNumCards() - 1));
+        }
+        
+        int stackToBePlayed = testCard(stackTopCardVals, hand);
+        
+        if ( stackToBePlayed > -1)
+        {
+            cardStacks[stackToBePlayed].takeCard(hand.playCard(playerCardToPlay));
+            updatePlayArea();
+            highCardGame.getHand(0).takeCard(highCardGame.getCardFromDeck());
+        }
+        else
+        {
+            cannotPlayCount[0]++;
+        }
 
-        System.out.println(stack0TopCard + "  //  " + stack1TopCard);
-
-//        int cardPlayStack0, cardPlayStack1;
-//
-//        cardPlayStack0 = testCard(stack0TopCard, hand);
-//
-//        if ( cardPlayStack0 != -5 )
-//        {
-//            System.out.println("not -5 stack 0");
-//            cardStacks[0].takeCard(highCardGame.getHand(0).playCard(cardPlayStack0));
-//            updatePlayArea();
-//        }
-//        else
-//        {
-//            System.out.println("stack0 not found");
-//            notFounds[0]++;
-//        }
-//        cardPlayStack1 = testCard(stack1TopCard, hand);
-//        if ( cardPlayStack1 != -5 )
-//        {
-//            System.out.println("not -5 stack 1");
-//            cardStacks[1].takeCard(highCardGame.getHand(1).playCard(cardPlayStack1));
-//            updatePlayArea();
-//        }
-//        else
-//        {
-//            System.out.println("stack 1 not found");
-//            notFounds[1]++;
-//        }
-//        if ( notFounds[0] > 5 && notFounds[1] > 5 )
-//        {
-//            currentPlayer = 1;
-//            JOptionPane.showMessageDialog(null, "Human's Turn");
-//        }
         currentPlayer = 1;
     }
 
-    public static int testCard (int valTopCard, Hand hand)
+    public static int testCard (int[] stackTopCardVals, Hand hand)
     {
-        for ( int k = 0; k < hand.getNumCards(); k++ )
+        for (int l = 0; l < stackTopCardVals.length; l++)
         {
-            int cardVal = Card.valueAsInt(hand.inspectCard(k));
-            //System.out.println(cardVal);
-            if ( Math.abs(cardVal - valTopCard) == 1 )
+            for ( int k = 0; k < hand.getNumCards(); k++ )
             {
-                return k;
+                int cardVal = Card.valueAsInt(hand.inspectCard(k));
+                if ( Math.abs(cardVal - stackTopCardVals[l]) == 1 )
+                {
+                    playerCardToPlay = k;
+                    return l;
+                }
             }
         }
-        return -5;
+        
+        return -1;
     }
 
     public static void playCard (int player, int stack)
@@ -350,7 +330,7 @@ public class Assignment6
         {
             cardStacks[stack].takeCard(highCardGame.getHand(player).playCard(playerCardToPlay));
             updatePlayArea();
-            if ( player > 0 )
+            if ( player != 0 )
             {
                 updateHumanPanel();
             }
