@@ -48,8 +48,8 @@ public class Assignment6
     static CardTable myCardTable;
     static int NUM_CARDS_PER_HAND = 7;
     static int NUM_PLAYERS = 2;
-    static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
-    static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
+    static JLabel[] computerLabels = new JLabel[56];
+    static JLabel[] humanLabels = new JLabel[56];
     static JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText = new JLabel[NUM_PLAYERS];
     static Counter timerCounter;
@@ -162,13 +162,15 @@ public class Assignment6
     public static void updateHumanPanel ()
     {
         highCardGame.getHand(1).takeCard(highCardGame.getCardFromDeck());
-        for ( int k = 0; k < NUM_CARDS_PER_HAND; k++ )
+        myCardTable.pnlHumanHand.removeAll();
+        for ( int k = 0; k < highCardGame.getHand(1).getNumCards(); k++ )
         {
 
-            humanLabels[k].setIcon(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));         
+            humanLabels[k] = new JLabel(GUICard.getIcon(highCardGame.getHand(1).inspectCard(k)));         
+            humanLabels[k].addMouseListener(clickListener);
             myCardTable.pnlHumanHand.add(humanLabels[k]);
-            humanLabels[k].revalidate();
         }
+        myCardTable.pnlHumanHand.revalidate();
     }
 
     public static void updatePlayArea ()
@@ -213,6 +215,70 @@ public class Assignment6
             {
                 playerCardToPlay = 6;
             }
+            else if ( event.getSource() == humanLabels[7] )
+            {
+                playerCardToPlay = 7;
+            }
+            else if ( event.getSource() == humanLabels[8] )
+            {
+                playerCardToPlay = 8;
+            }
+            else if ( event.getSource() == humanLabels[9] )
+            {
+                playerCardToPlay = 9;
+            }
+            else if ( event.getSource() == humanLabels[10] )
+            {
+                playerCardToPlay = 10;
+            }
+            else if ( event.getSource() == humanLabels[11] )
+            {
+                playerCardToPlay = 11;
+            }
+            else if ( event.getSource() == humanLabels[12] )
+            {
+                playerCardToPlay = 12;
+            }
+            else if ( event.getSource() == humanLabels[13] )
+            {
+                playerCardToPlay = 13;
+            }
+            else if ( event.getSource() == humanLabels[14] )
+            {
+                playerCardToPlay = 14;
+            }
+            else if ( event.getSource() == humanLabels[15] )
+            {
+                playerCardToPlay = 15;
+            }
+            else if ( event.getSource() == humanLabels[16] )
+            {
+                playerCardToPlay = 16;
+            }
+            else if ( event.getSource() == humanLabels[17] )
+            {
+                playerCardToPlay = 17;
+            }
+            else if ( event.getSource() == humanLabels[18] )
+            {
+                playerCardToPlay = 18;
+            }
+            else if ( event.getSource() == humanLabels[19] )
+            {
+                playerCardToPlay = 19;
+            }
+            else if ( event.getSource() == humanLabels[20] )
+            {
+                playerCardToPlay = 20;
+            }
+            else if ( event.getSource() == humanLabels[21] )
+            {
+                playerCardToPlay = 21;
+            }
+            else if ( event.getSource() == humanLabels[22] )
+            {
+                playerCardToPlay = 22;
+            }
             else if ( event.getSource() == playedCardLabels[0] )
             {
                 if ( playCard(1, 0) )
@@ -244,6 +310,7 @@ public class Assignment6
                 {
                     cannotPlayCount[1]++;
                     noMoves[1]++;
+                    updateHumanPanel();
                     currentPlayer = 0;
                     if (!checkForEnd())
                     {
@@ -294,13 +361,13 @@ public class Assignment6
             cardStacks[stackToBePlayed].takeCard(hand.playCard(playerCardToPlay));
             noMoves[0] = 0;
             updatePlayArea();
-            highCardGame.getHand(0).takeCard(highCardGame.getCardFromDeck());
         }
         else
         {
             cannotPlayCount[0]++;
             noMoves[0]++;
         }
+        highCardGame.getHand(0).takeCard(highCardGame.getCardFromDeck());
 
         currentPlayer = 1;
         checkForEnd();
@@ -351,8 +418,8 @@ public class Assignment6
     
     public static boolean checkForEnd()
     {
-        if ( highCardGame.getNumCardsRemainingInDeck() == 0 
-                || (noMoves[0] > 3 || noMoves[1] > 3))
+        if ( highCardGame.getNumCardsRemainingInDeck() == 0) 
+                //|| (noMoves[0] > 3 || noMoves[1] > 3))
         {
             if ( cannotPlayCount[0] > cannotPlayCount[1] )
             {
@@ -366,6 +433,10 @@ public class Assignment6
             {
                 JOptionPane.showMessageDialog(null, "Tie Game!\nThanks for Playing");
             }
+            System.out.println("computer card count: " 
+                    + highCardGame.getHand(0).getNumCards() 
+                    + "\nHuman card count: " 
+                    + highCardGame.getHand(1).getNumCards());
         }
         return false;
     }
