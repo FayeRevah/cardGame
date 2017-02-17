@@ -17,7 +17,8 @@
 *	>   Redraw the UML diagram so that it represents your new structure.
 *
 *   Classes:
-*       Card, Hand, Deck, GUICard, CardTable extends JFrame, CardGameFramework
+*       Card, Hand, Deck, GUICard, CardTable extends JFrame, CardGameFramework,
+*       counter
 *
 *   Parameters:
 *       1. none
